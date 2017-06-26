@@ -1,0 +1,16 @@
+{% extends "shop/base.html" %}
+
+{% block page %}
+	{% block content %}
+	<div class="body">
+	<form method="post">
+    {% csrf_token %}
+    Вы хотите удалить статью "{{ object }}" ?
+    <input type="submit" name="action" value="Yes" />
+    <input type="submit" name="action" value="No" />
+</form>
+</div>
+	{% endblock %}
+{% endblock %}
+
+

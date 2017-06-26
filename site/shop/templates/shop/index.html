@@ -1,0 +1,62 @@
+{% extends "shop/base.html" %}
+
+{% block page %}
+	{% block content %}
+<script src="static/jquery-3.2.1.js"></script>
+<script src="static/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function(){
+var arr1 = $.cookie('cart');
+        if(!arr1){
+          arr1 = '[]';
+        }
+        var json2 = $.parseJSON(arr1);
+        var summa1 = 0;
+                    $.each(json2, function( index, value ){
+                    
+              summa1 = summa1 + parseInt(value['price']);
+                          });
+            $('.cart .summa').text(summa1);        
+
+});
+</script>
+
+<div class="jumbotron text-center">
+	<a href="{% url 'index' %}"><h1>Brusnika</h1></a>
+</div>
+<div class="container" >
+  <div class="row">
+
+  	<div class="col-md-3">
+  	<a href="{% url 'list5' %}"><img src="static/brasl.jpg" width="100%"></a>
+  </div>
+  <div class="col-md-3">
+  	<a href="{% url 'list4' %}"><img src="static/cep.jpg" width="100%" alt""></a>
+  </div>
+  <div class="col-md-3">
+  	<a href="{% url 'list2' %}"><img src="static/ser.jpg" width="100%"></a>
+  </div>
+  <div class="col-md-3">
+  	<a href="{% url 'list3' %}"><img src="static/kul.jpg" width="100%" ></a>
+  </div>
+  <div class="clearfix"></div>
+  <div class="col-md-12">
+  	<a href="{% url 'list1' %}"><img src="static/12.jpg" width="100%"></a>
+  </div>
+
+<div class="clearfix"></div> 
+
+{% include "shop/top.html" %}  
+
+
+<div class="clearfix"></div>
+
+<h1>Все Украшения:</h1>
+
+   <div class="col-md-12">
+    <a href="{% url 'alll' %}"><img src="static/alll.jpg" width="100%"></a>
+  </div>       
+  </div>
+</div>
+	{% endblock %}
+{% endblock %}

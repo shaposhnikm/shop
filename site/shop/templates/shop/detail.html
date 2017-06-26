@@ -1,0 +1,58 @@
+{% extends "shop/base.html" %}
+
+ {% load staticfiles %}
+
+{% block page %}
+	{% block content %}
+<script src="static/jquery-3.2.1.js"></script>
+<script src="static/jquery.cookie.js"></script>
+<a href="{% url 'index' %}" ><i class="glyphicon glyphicon-arrow-left"></i></a>
+<br><br>
+<div class="container">
+<div class="detail">
+<div class="row">
+<h1 align="center">{{items.name}} </h1>
+<div class="col-md-6">
+<img class="full" src="{{items.image}}" width="60%" alt=''><br><br>
+</div>
+<div class="col-md-4">
+	<br>
+	<br>
+	<b><p id="text">{{items.context}}</p></b>
+	<p>Размеры:   {{items.size}}</p>
+	<p>Метал:      <a href="{% url 'metal'  items.metal.id %}" class="btn btn-default">{{items.metal}}</a></p>
+	<p>Вставка:  {{items.vstavka}} </p>
+	<p>Цена:<span class='price'>{{items.price}}</span>UAH</p>
+	<p>В наличии: {{items.stock}} шт.</p>
+	<div class="btn btn-success"><a href="#" class="buy">Купить</a></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+	    $(".buy").click(function(){
+	    	var arr = $.cookie('cart');
+	    	if(!arr){
+	    		arr = '[]';
+	    	}
+	    	var json = $.parseJSON(arr);
+	    	json.push({
+	    		     'price':$('span.price').text(),
+	    		     'name':$('h1').text(),
+	    		     'images':$('img.full').attr('src'),
+	    		     
+	                  });
+            $.cookie('cart', JSON.stringify(json), { path : '/' });
+            var summa = 0;
+            $.each(json, function( index, value ){
+            	summa = summa + parseInt(value['price']);
+            });
+            $('.cart .summa').text(summa);
+        });	
+	});
+</script>
+
+
+	{% endblock %}
+{% endblock %}

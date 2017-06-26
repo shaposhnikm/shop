@@ -1,0 +1,54 @@
+
+{% load staticfiles %}
+
+
+
+{% block page %}
+    {% block content %}
+<div class="container" >
+  <div class="row">
+<h1>Топ Украшений:</h1>
+<div class="clearfix"></div> 
+ 
+
+ <div class="well well-sm">
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Grid</a>
+        </div>
+    </div>
+
+<div class="clearfix"></div>
+
+    <div id="products" class="row list-group">
+    {% for top in best %}
+        <div class="item  col-xs-2 col-lg-2">
+            <div class="thumbnail">
+                <a href="{% url 'detail' top.id %}" ><img class="group list-group-image" src="/{{top.image}}" alt=""></a>
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading"><a href="{% url 'detail' top.id %}" >{{top.name}}
+                    </a></h4>
+                    
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <p class="lead">{{ top.price }} UAH</p>
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                            <a class="btn btn-success" href="{% url 'detail' top.id %}">Купить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+     </div>
+        </div>
+     </div>
+    {% endblock %}
+{% endblock %}
+
+
+
+
+

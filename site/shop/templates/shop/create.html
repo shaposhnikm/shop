@@ -1,0 +1,27 @@
+{% extends "shop/base.html" %}
+ {% load staticfiles %}
+{% block page %}
+	{% block content %}
+
+
+<div class="container" >
+  <div class="row">
+
+    <div class="col-md-12">
+
+
+  <h1>Оформление заказа</h1>
+    <h2>Заполните форму</h2>
+    <form class="order-form" action="." method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Отправить">
+    </form>
+    </div>
+      </div>
+        </div>
+
+
+{% endblock %}
+
+	{% endblock %}

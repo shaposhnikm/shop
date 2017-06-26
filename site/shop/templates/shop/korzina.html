@@ -1,0 +1,74 @@
+ {% extends "shop/base.html" %}
+ {% load staticfiles %}
+
+{% block page %}
+  {% block content %}
+<script src="/static/jquery-3.2.1.js"></script>
+<script src="/static/jquery.cookie.js"></script>
+<script>
+  
+  $(document).ready(function() {
+    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+});
+
+
+</script>
+<br><br>
+<div class="container" >
+<div class="korzina">
+
+             <div class="row">
+             <div class="col-md-3"><img src=""><br><br>
+             </div>
+             <div class="col-md-5">
+                  <div class="name"></div>
+                  <div class="price"></div>
+             </div>
+             </div>
+             <div class="cart"><div class="total">Cума Вашей покупки<span class="summa">0</span> UAH</div></div>
+        </div>
+        <br>
+        <div class="btn btn-success"><a href="{% url 'create' %}" class="buy">Купить</a></div>
+         
+ <script type="text/javascript">
+ $(function(){
+        var arr1 = $.cookie('cart');
+        if(!arr1){
+          arr1 = '[]';
+        }
+        var json2 = $.parseJSON(arr1);
+        var summa1= 0;
+        $.each(json2, function( index, value ){
+          $('.korzina').append('<div class="row"><div class="id" style="display:none">'+index+'</div><div class="col-md-4"><div class="name">'+value["name"]+'</div><img src="/'+value["images"]+'"></div><div class="col-md-5"><div class="price">'+value["price"]+'</div></div><div class="col-md-2"><div class="delete">X</div></div></div>');
+          summa1 = summa1 + parseInt(value['price']);
+        });
+        $('.total .summa1').text(summa1);
+        $('.delete').on('click', function(){
+          var parent = $(this).parent();
+          var obj = parseInt($(this).closest('.row').find('.id').text());
+          var arr = $.cookie('cart');
+        if(!arr){
+          arr = '[]';
+        }
+        var json = $.parseJSON(arr);
+        var summa= parseInt($('.total.summa').text());
+        $.each(json, function( index, value ){
+          if(index==obj){
+            summa = summa - parseInt(value['price']);
+            json.splice(index,1);}  
+                 });
+          $.cookie('cart',JSON.stringify(json),{path:'/'});
+          $('.total .summa').text(summa);
+          parent.remove();
+           $.each($('.id'), function( index, value ){
+              $(this).text(index);
+        });  
+        });
+       });
+      </script>    
+             
+ 
+
+  {% endblock %}
+{% endblock %}
